@@ -1,0 +1,26 @@
+# Secrets: never commit API keys
+openai_llm_class_key.txt
+*key*.txt
+.env
+.env.*
+
+# Eval output (traces get large; add a final summary with: git add -f results/<run>/summary.md)
+results/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Local databases
+*.db
+*.sqlite
+*.sqlite3
+
+# macOS / editors
+.DS_Store
+.vscode/
+.idea/
