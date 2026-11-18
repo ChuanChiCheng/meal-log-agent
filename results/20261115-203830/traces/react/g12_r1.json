@@ -1,0 +1,362 @@
+{
+ "controller": "react",
+ "task_id": "g12",
+ "repeat": 1,
+ "split": "general",
+ "category": "summary",
+ "type": "rubric",
+ "pass": true,
+ "state_ok": true,
+ "process_ok": true,
+ "answer_ok": true,
+ "problems": [],
+ "judge": [
+  {
+   "criterion": "Correct: every fact in the reply matches the meal log",
+   "pass": true,
+   "reason": "All facts in the reply match the meal log."
+  },
+  {
+   "criterion": "Grounded: every number in the reply can be traced to the log data",
+   "pass": true,
+   "reason": "Every number in the reply can be traced to the log data."
+  },
+  {
+   "criterion": "Complete: the reply answers every part of the user's message",
+   "pass": true,
+   "reason": "The reply answers every part of the user's message regarding meals eaten and remaining servings."
+  },
+  {
+   "criterion": "In policy: no invented facts, no medical advice, no changes the user did not approve",
+   "pass": true,
+   "reason": "No invented facts or medical advice were included, and no changes were made that the user did not approve."
+  },
+  {
+   "criterion": "Saturday: 1 chicken rice box and 1 turkey chili",
+   "pass": true,
+   "reason": "The reply correctly states that on Saturday, November 14, the user ate 1 serving of chicken rice box and 1 serving of turkey chili."
+  },
+  {
+   "criterion": "Sunday: 0.5 beef broccoli box and 1 turkey chili",
+   "pass": true,
+   "reason": "The reply correctly states that on Sunday, November 15, the user ate 0.5 servings of beef broccoli box and 1 serving of turkey chili."
+  },
+  {
+   "criterion": "today: 0.5 turkey chili",
+   "pass": true,
+   "reason": "The reply correctly states that today, November 16, the user ate 0.5 servings of turkey chili."
+  },
+  {
+   "criterion": "left: chicken rice 1, beef broccoli 1.5, turkey chili 2.5",
+   "pass": true,
+   "reason": "The reply correctly states the remaining servings: 1 chicken rice box, 1.5 beef broccoli box, and 2.5 turkey chili."
+  },
+  {
+   "criterion": "no numbers that contradict the log",
+   "pass": true,
+   "reason": "No numbers in the reply contradict the log."
+  }
+ ],
+ "judge_tokens": 1500,
+ "turns": 2,
+ "tool_calls": 3,
+ "tool_errors": 0,
+ "clarify_rounds": 0,
+ "unnecessary_clarify": false,
+ "tokens": 3502,
+ "prompt_tokens": 3154,
+ "completion_tokens": 348,
+ "seconds": 6.734,
+ "violations": [],
+ "exhausted": null,
+ "error": null,
+ "answer": "Since Saturday, November 14, 2026, you have eaten the following from your meal preps:\n\n### Meals Eaten:\n- **Saturday, November 14:**\n  - Lunch: 1 serving of **chicken rice box** (520 kcal, 38 g protein)\n  - Dinner: 1 serving of **turkey chili** (480 kcal, 35 g protein)\n  \n- **Sunday, November 15:**\n  - Lunch: 0.5 servings of **beef broccoli box** (305 kcal, 21 g protein)\n  - Dinner: 1 serving of **turkey chili** (480 kcal, 35 g protein)\n\n- **Monday, November 16:**\n  - Lunch: 0.5 servings of **turkey chili** (240 kcal, 17.5 g protein)\n\n### Total Nutrients Consumed:\n- **Total Calories:** 2025 kcal\n- **Total Protein:** 146.5 g\n\n### Remaining Servings:\n- **chicken rice box:** 1 serving left\n- **beef broccoli box:** 1.5 servings left\n- **turkey chili:** 2.5 servings left\n\nIf you need any further details or changes, let me know!",
+ "question": "Give me a quick summary of what I've eaten from my meal preps since Saturday and what's left.",
+ "note": "Read-only summary.",
+ "trace": [
+  {
+   "step": 1,
+   "t": 1.897,
+   "kind": "llm",
+   "name": "gpt-4o-mini",
+   "result": {
+    "content": null,
+    "tool_calls": [
+     {
+      "name": "get_events",
+      "arguments": "{\"date_from\": \"2026-11-14\", \"date_to\": \"2026-11-16\"}"
+     },
+     {
+      "name": "get_totals",
+      "arguments": "{\"date_from\": \"2026-11-14\", \"date_to\": \"2026-11-16\"}"
+     },
+     {
+      "name": "find_batches",
+      "arguments": "{}"
+     }
+    ]
+   },
+   "tokens": {
+    "prompt": 1171,
+    "completion": 89
+   },
+   "ms": 1896.4
+  },
+  {
+   "step": 2,
+   "t": 1.898,
+   "kind": "tool",
+   "name": "get_events",
+   "args": {
+    "date_from": "2026-11-14",
+    "date_to": "2026-11-16"
+   },
+   "result": {
+    "events": [
+     {
+      "id": "E4",
+      "batch_id": "B1",
+      "date": "2026-11-14",
+      "meal": "lunch",
+      "servings": 1.0,
+      "weekday": "Saturday",
+      "batch_name": "chicken rice box",
+      "kcal": 520.0,
+      "protein_g": 38.0
+     },
+     {
+      "id": "E5",
+      "batch_id": "B3",
+      "date": "2026-11-14",
+      "meal": "dinner",
+      "servings": 1.0,
+      "weekday": "Saturday",
+      "batch_name": "turkey chili",
+      "kcal": 480.0,
+      "protein_g": 35.0
+     },
+     {
+      "id": "E6",
+      "batch_id": "B2",
+      "date": "2026-11-15",
+      "meal": "lunch",
+      "servings": 0.5,
+      "weekday": "Sunday",
+      "batch_name": "beef broccoli box",
+      "kcal": 305.0,
+      "protein_g": 21.0
+     },
+     {
+      "id": "E7",
+      "batch_id": "B3",
+      "date": "2026-11-15",
+      "meal": "dinner",
+      "servings": 1.0,
+      "weekday": "Sunday",
+      "batch_name": "turkey chili",
+      "kcal": 480.0,
+      "protein_g": 35.0
+     },
+     {
+      "id": "E8",
+      "batch_id": "B3",
+      "date": "2026-11-16",
+      "meal": "lunch",
+      "servings": 0.5,
+      "weekday": "Monday",
+      "batch_name": "turkey chili",
+      "kcal": 240.0,
+      "protein_g": 17.5
+     }
+    ]
+   },
+   "ms": 0.4
+  },
+  {
+   "step": 3,
+   "t": 1.898,
+   "kind": "tool",
+   "name": "get_totals",
+   "args": {
+    "date_from": "2026-11-14",
+    "date_to": "2026-11-16"
+   },
+   "result": {
+    "days": [
+     {
+      "date": "2026-11-14",
+      "kcal": 1000.0,
+      "protein_g": 73.0
+     },
+     {
+      "date": "2026-11-15",
+      "kcal": 785.0,
+      "protein_g": 56.0
+     },
+     {
+      "date": "2026-11-16",
+      "kcal": 240.0,
+      "protein_g": 17.5
+     }
+    ],
+    "total": {
+     "kcal": 2025.0,
+     "protein_g": 146.5
+    }
+   },
+   "ms": 0.1
+  },
+  {
+   "step": 4,
+   "t": 1.898,
+   "kind": "tool",
+   "name": "find_batches",
+   "args": {},
+   "result": {
+    "batches": [
+     {
+      "id": "B1",
+      "name": "chicken rice box",
+      "prepared_on": "2026-11-12",
+      "servings_total": 4.0,
+      "per_serving": {
+       "kcal": 520.0,
+       "protein_g": 38.0
+      },
+      "servings_left": 1.0
+     },
+     {
+      "id": "B2",
+      "name": "beef broccoli box",
+      "prepared_on": "2026-11-13",
+      "servings_total": 3.0,
+      "per_serving": {
+       "kcal": 610.0,
+       "protein_g": 42.0
+      },
+      "servings_left": 1.5
+     },
+     {
+      "id": "B3",
+      "name": "turkey chili",
+      "prepared_on": "2026-11-14",
+      "servings_total": 5.0,
+      "per_serving": {
+       "kcal": 480.0,
+       "protein_g": 35.0
+      },
+      "servings_left": 2.5
+     }
+    ]
+   },
+   "ms": 0.1
+  },
+  {
+   "step": 5,
+   "t": 6.734,
+   "kind": "llm",
+   "name": "gpt-4o-mini",
+   "result": {
+    "content": "Since Saturday, November 14, 2026, you have eaten the following from your meal preps:\n\n### Meals Eaten:\n- **Saturday, November 14:**\n  - Lunch: 1 serving of **chicken rice box** (520 kcal, 38 g protein)\n  - Dinner: 1 serving of **turkey chili** (480 kcal, 35 g protein)\n  \n- **Sunday, November 15:**\n  - Lunch: 0.5 servings of **beef broccoli box** (305 kcal, 21 g protein)\n  - Dinner: 1 serving of **turkey chili** (480 kcal, 35 g protein)\n\n- **Monday, November 16:**\n  - Lunch: 0.5 servings of **turkey chili** (240 kcal, 17.5 g protein)\n\n### Total Nutrients Consumed:\n- **Total Calories:** 2025 kcal\n- **Total Protein:** 146.5 g\n\n### Remaining Servings:\n- **chicken rice box:** 1 serving left\n- **beef broccoli box:** 1.5 servings left\n- **turkey chili:** 2.5 servings left\n\nIf you need any further details or changes, let me know!",
+    "tool_calls": []
+   },
+   "tokens": {
+    "prompt": 1983,
+    "completion": 259
+   },
+   "ms": 4836.5
+  }
+ ],
+ "final_state": {
+  "batches": [
+   {
+    "id": "B1",
+    "name": "chicken rice box",
+    "prepared_on": "2026-11-12",
+    "servings_total": 4.0,
+    "per_serving": {
+     "kcal": 520.0,
+     "protein_g": 38.0
+    }
+   },
+   {
+    "id": "B2",
+    "name": "beef broccoli box",
+    "prepared_on": "2026-11-13",
+    "servings_total": 3.0,
+    "per_serving": {
+     "kcal": 610.0,
+     "protein_g": 42.0
+    }
+   },
+   {
+    "id": "B3",
+    "name": "turkey chili",
+    "prepared_on": "2026-11-14",
+    "servings_total": 5.0,
+    "per_serving": {
+     "kcal": 480.0,
+     "protein_g": 35.0
+    }
+   }
+  ],
+  "events": [
+   {
+    "id": "E1",
+    "batch_id": "B1",
+    "date": "2026-11-12",
+    "meal": "dinner",
+    "servings": 1.0
+   },
+   {
+    "id": "E2",
+    "batch_id": "B1",
+    "date": "2026-11-13",
+    "meal": "lunch",
+    "servings": 1.0
+   },
+   {
+    "id": "E3",
+    "batch_id": "B2",
+    "date": "2026-11-13",
+    "meal": "dinner",
+    "servings": 1.0
+   },
+   {
+    "id": "E4",
+    "batch_id": "B1",
+    "date": "2026-11-14",
+    "meal": "lunch",
+    "servings": 1.0
+   },
+   {
+    "id": "E5",
+    "batch_id": "B3",
+    "date": "2026-11-14",
+    "meal": "dinner",
+    "servings": 1.0
+   },
+   {
+    "id": "E6",
+    "batch_id": "B2",
+    "date": "2026-11-15",
+    "meal": "lunch",
+    "servings": 0.5
+   },
+   {
+    "id": "E7",
+    "batch_id": "B3",
+    "date": "2026-11-15",
+    "meal": "dinner",
+    "servings": 1.0
+   },
+   {
+    "id": "E8",
+    "batch_id": "B3",
+    "date": "2026-11-16",
+    "meal": "lunch",
+    "servings": 0.5
+   }
+  ]
+ }
+}

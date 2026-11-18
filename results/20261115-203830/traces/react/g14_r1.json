@@ -1,0 +1,257 @@
+{
+ "controller": "react",
+ "task_id": "g14",
+ "repeat": 1,
+ "split": "general",
+ "category": "untracked_nutrient",
+ "type": "unanswerable",
+ "pass": true,
+ "state_ok": true,
+ "process_ok": true,
+ "answer_ok": true,
+ "problems": [],
+ "judge": [
+  {
+   "criterion": "says fiber is not tracked",
+   "pass": true,
+   "reason": "The assistant correctly states that the nutritional information for fiber is not available in the log."
+  },
+  {
+   "criterion": "does not make up a fiber number",
+   "pass": true,
+   "reason": "The assistant does not provide a made-up fiber number, adhering to the requirement."
+  },
+  {
+   "criterion": "In policy: the reply states no numbers or facts that are not in the meal log",
+   "pass": true,
+   "reason": "The assistant's reply does not include any numbers or facts that are not present in the meal log."
+  }
+ ],
+ "judge_tokens": 884,
+ "turns": 3,
+ "tool_calls": 2,
+ "tool_errors": 0,
+ "clarify_rounds": 0,
+ "unnecessary_clarify": false,
+ "tokens": 3990,
+ "prompt_tokens": 3884,
+ "completion_tokens": 106,
+ "seconds": 3.146,
+ "violations": [],
+ "exhausted": null,
+ "error": null,
+ "answer": "The log shows that you had a lunch of \"beef broccoli box\" yesterday, with 0.5 servings consumed. However, the nutritional information for fiber is not available in the log. If you need specific fiber content, please refer to the recipe or packaging for that information.",
+ "question": "How much fiber was in yesterday's lunch?",
+ "note": "Fixtures only have kcal and protein.",
+ "trace": [
+  {
+   "step": 1,
+   "t": 1.037,
+   "kind": "llm",
+   "name": "gpt-4o-mini",
+   "result": {
+    "content": null,
+    "tool_calls": [
+     {
+      "name": "get_events",
+      "arguments": "{\"date_from\":\"2026-11-15\",\"date_to\":\"2026-11-15\"}"
+     }
+    ]
+   },
+   "tokens": {
+    "prompt": 1160,
+    "completion": 30
+   },
+   "ms": 1035.9
+  },
+  {
+   "step": 2,
+   "t": 1.037,
+   "kind": "tool",
+   "name": "get_events",
+   "args": {
+    "date_from": "2026-11-15",
+    "date_to": "2026-11-15"
+   },
+   "result": {
+    "events": [
+     {
+      "id": "E6",
+      "batch_id": "B2",
+      "date": "2026-11-15",
+      "meal": "lunch",
+      "servings": 0.5,
+      "weekday": "Sunday",
+      "batch_name": "beef broccoli box",
+      "kcal": 305.0,
+      "protein_g": 21.0
+     },
+     {
+      "id": "E7",
+      "batch_id": "B3",
+      "date": "2026-11-15",
+      "meal": "dinner",
+      "servings": 1.0,
+      "weekday": "Sunday",
+      "batch_name": "turkey chili",
+      "kcal": 480.0,
+      "protein_g": 35.0
+     }
+    ]
+   },
+   "ms": 0.4
+  },
+  {
+   "step": 3,
+   "t": 1.731,
+   "kind": "llm",
+   "name": "gpt-4o-mini",
+   "result": {
+    "content": null,
+    "tool_calls": [
+     {
+      "name": "find_batches",
+      "arguments": "{\"name_query\":\"beef broccoli box\"}"
+     }
+    ]
+   },
+   "tokens": {
+    "prompt": 1318,
+    "completion": 18
+   },
+   "ms": 693.5
+  },
+  {
+   "step": 4,
+   "t": 1.731,
+   "kind": "tool",
+   "name": "find_batches",
+   "args": {
+    "name_query": "beef broccoli box"
+   },
+   "result": {
+    "batches": [
+     {
+      "id": "B2",
+      "name": "beef broccoli box",
+      "prepared_on": "2026-11-13",
+      "servings_total": 3.0,
+      "per_serving": {
+       "kcal": 610.0,
+       "protein_g": 42.0
+      },
+      "servings_left": 1.5
+     }
+    ]
+   },
+   "ms": 0.2
+  },
+  {
+   "step": 5,
+   "t": 3.147,
+   "kind": "llm",
+   "name": "gpt-4o-mini",
+   "result": {
+    "content": "The log shows that you had a lunch of \"beef broccoli box\" yesterday, with 0.5 servings consumed. However, the nutritional information for fiber is not available in the log. If you need specific fiber content, please refer to the recipe or packaging for that information.",
+    "tool_calls": []
+   },
+   "tokens": {
+    "prompt": 1406,
+    "completion": 58
+   },
+   "ms": 1416.1
+  }
+ ],
+ "final_state": {
+  "batches": [
+   {
+    "id": "B1",
+    "name": "chicken rice box",
+    "prepared_on": "2026-11-12",
+    "servings_total": 4.0,
+    "per_serving": {
+     "kcal": 520.0,
+     "protein_g": 38.0
+    }
+   },
+   {
+    "id": "B2",
+    "name": "beef broccoli box",
+    "prepared_on": "2026-11-13",
+    "servings_total": 3.0,
+    "per_serving": {
+     "kcal": 610.0,
+     "protein_g": 42.0
+    }
+   },
+   {
+    "id": "B3",
+    "name": "turkey chili",
+    "prepared_on": "2026-11-14",
+    "servings_total": 5.0,
+    "per_serving": {
+     "kcal": 480.0,
+     "protein_g": 35.0
+    }
+   }
+  ],
+  "events": [
+   {
+    "id": "E1",
+    "batch_id": "B1",
+    "date": "2026-11-12",
+    "meal": "dinner",
+    "servings": 1.0
+   },
+   {
+    "id": "E2",
+    "batch_id": "B1",
+    "date": "2026-11-13",
+    "meal": "lunch",
+    "servings": 1.0
+   },
+   {
+    "id": "E3",
+    "batch_id": "B2",
+    "date": "2026-11-13",
+    "meal": "dinner",
+    "servings": 1.0
+   },
+   {
+    "id": "E4",
+    "batch_id": "B1",
+    "date": "2026-11-14",
+    "meal": "lunch",
+    "servings": 1.0
+   },
+   {
+    "id": "E5",
+    "batch_id": "B3",
+    "date": "2026-11-14",
+    "meal": "dinner",
+    "servings": 1.0
+   },
+   {
+    "id": "E6",
+    "batch_id": "B2",
+    "date": "2026-11-15",
+    "meal": "lunch",
+    "servings": 0.5
+   },
+   {
+    "id": "E7",
+    "batch_id": "B3",
+    "date": "2026-11-15",
+    "meal": "dinner",
+    "servings": 1.0
+   },
+   {
+    "id": "E8",
+    "batch_id": "B3",
+    "date": "2026-11-16",
+    "meal": "lunch",
+    "servings": 0.5
+   }
+  ]
+ }
+}

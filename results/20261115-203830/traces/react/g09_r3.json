@@ -1,0 +1,204 @@
+{
+ "controller": "react",
+ "task_id": "g09",
+ "repeat": 3,
+ "split": "general",
+ "category": "query",
+ "type": "exact",
+ "pass": true,
+ "state_ok": true,
+ "process_ok": true,
+ "answer_ok": true,
+ "problems": [],
+ "judge": null,
+ "judge_tokens": 0,
+ "turns": 2,
+ "tool_calls": 1,
+ "tool_errors": 0,
+ "clarify_rounds": 0,
+ "unnecessary_clarify": false,
+ "tokens": 2552,
+ "prompt_tokens": 2517,
+ "completion_tokens": 35,
+ "seconds": 1.704,
+ "violations": [],
+ "exhausted": null,
+ "error": null,
+ "answer": "The meal prep with the most servings left is the \"turkey chili,\" which has 2.5 servings remaining.",
+ "question": "Which of my meal preps has the most servings left?",
+ "note": "Remaining: chicken rice 1, beef 1.5, chili 2.5.",
+ "trace": [
+  {
+   "step": 1,
+   "t": 0.785,
+   "kind": "llm",
+   "name": "gpt-4o-mini",
+   "result": {
+    "content": null,
+    "tool_calls": [
+     {
+      "name": "find_batches",
+      "arguments": "{}"
+     }
+    ]
+   },
+   "tokens": {
+    "prompt": 1163,
+    "completion": 10
+   },
+   "ms": 784.3
+  },
+  {
+   "step": 2,
+   "t": 0.785,
+   "kind": "tool",
+   "name": "find_batches",
+   "args": {},
+   "result": {
+    "batches": [
+     {
+      "id": "B1",
+      "name": "chicken rice box",
+      "prepared_on": "2026-11-12",
+      "servings_total": 4.0,
+      "per_serving": {
+       "kcal": 520.0,
+       "protein_g": 38.0
+      },
+      "servings_left": 1.0
+     },
+     {
+      "id": "B2",
+      "name": "beef broccoli box",
+      "prepared_on": "2026-11-13",
+      "servings_total": 3.0,
+      "per_serving": {
+       "kcal": 610.0,
+       "protein_g": 42.0
+      },
+      "servings_left": 1.5
+     },
+     {
+      "id": "B3",
+      "name": "turkey chili",
+      "prepared_on": "2026-11-14",
+      "servings_total": 5.0,
+      "per_serving": {
+       "kcal": 480.0,
+       "protein_g": 35.0
+      },
+      "servings_left": 2.5
+     }
+    ]
+   },
+   "ms": 0.3
+  },
+  {
+   "step": 3,
+   "t": 1.705,
+   "kind": "llm",
+   "name": "gpt-4o-mini",
+   "result": {
+    "content": "The meal prep with the most servings left is the \"turkey chili,\" which has 2.5 servings remaining.",
+    "tool_calls": []
+   },
+   "tokens": {
+    "prompt": 1354,
+    "completion": 25
+   },
+   "ms": 919.4
+  }
+ ],
+ "final_state": {
+  "batches": [
+   {
+    "id": "B1",
+    "name": "chicken rice box",
+    "prepared_on": "2026-11-12",
+    "servings_total": 4.0,
+    "per_serving": {
+     "kcal": 520.0,
+     "protein_g": 38.0
+    }
+   },
+   {
+    "id": "B2",
+    "name": "beef broccoli box",
+    "prepared_on": "2026-11-13",
+    "servings_total": 3.0,
+    "per_serving": {
+     "kcal": 610.0,
+     "protein_g": 42.0
+    }
+   },
+   {
+    "id": "B3",
+    "name": "turkey chili",
+    "prepared_on": "2026-11-14",
+    "servings_total": 5.0,
+    "per_serving": {
+     "kcal": 480.0,
+     "protein_g": 35.0
+    }
+   }
+  ],
+  "events": [
+   {
+    "id": "E1",
+    "batch_id": "B1",
+    "date": "2026-11-12",
+    "meal": "dinner",
+    "servings": 1.0
+   },
+   {
+    "id": "E2",
+    "batch_id": "B1",
+    "date": "2026-11-13",
+    "meal": "lunch",
+    "servings": 1.0
+   },
+   {
+    "id": "E3",
+    "batch_id": "B2",
+    "date": "2026-11-13",
+    "meal": "dinner",
+    "servings": 1.0
+   },
+   {
+    "id": "E4",
+    "batch_id": "B1",
+    "date": "2026-11-14",
+    "meal": "lunch",
+    "servings": 1.0
+   },
+   {
+    "id": "E5",
+    "batch_id": "B3",
+    "date": "2026-11-14",
+    "meal": "dinner",
+    "servings": 1.0
+   },
+   {
+    "id": "E6",
+    "batch_id": "B2",
+    "date": "2026-11-15",
+    "meal": "lunch",
+    "servings": 0.5
+   },
+   {
+    "id": "E7",
+    "batch_id": "B3",
+    "date": "2026-11-15",
+    "meal": "dinner",
+    "servings": 1.0
+   },
+   {
+    "id": "E8",
+    "batch_id": "B3",
+    "date": "2026-11-16",
+    "meal": "lunch",
+    "servings": 0.5
+   }
+  ]
+ }
+}

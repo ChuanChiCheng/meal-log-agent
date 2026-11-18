@@ -1,0 +1,301 @@
+{
+ "controller": "react",
+ "task_id": "h03",
+ "repeat": 2,
+ "split": "heldout",
+ "category": "today_absent",
+ "type": "state",
+ "pass": true,
+ "state_ok": true,
+ "process_ok": true,
+ "answer_ok": true,
+ "problems": [],
+ "judge": null,
+ "judge_tokens": 0,
+ "turns": 6,
+ "tool_calls": 5,
+ "tool_errors": 0,
+ "clarify_rounds": 0,
+ "unnecessary_clarify": false,
+ "tokens": 8684,
+ "prompt_tokens": 8503,
+ "completion_tokens": 181,
+ "seconds": 5.804,
+ "violations": [],
+ "exhausted": null,
+ "error": null,
+ "answer": "I updated Tuesday's curry log to reflect that you ate half of it on Tuesday and the other half today. The changes have been saved successfully.",
+ "question": "Fix Tuesday's curry: I ate half of it on Tuesday and the other half today.",
+ "note": "Wednesday clock: Tuesday = yesterday = 2026-11-17; Monday's entry untouched.",
+ "trace": [
+  {
+   "step": 1,
+   "t": 0.853,
+   "kind": "llm",
+   "name": "gpt-4o-mini",
+   "result": {
+    "content": null,
+    "tool_calls": [
+     {
+      "name": "get_events",
+      "arguments": "{\"date_from\":\"2026-11-17\",\"date_to\":\"2026-11-18\"}"
+     }
+    ]
+   },
+   "tokens": {
+    "prompt": 1169,
+    "completion": 30
+   },
+   "ms": 852.8
+  },
+  {
+   "step": 2,
+   "t": 0.854,
+   "kind": "tool",
+   "name": "get_events",
+   "args": {
+    "date_from": "2026-11-17",
+    "date_to": "2026-11-18"
+   },
+   "result": {
+    "events": [
+     {
+      "id": "E2",
+      "batch_id": "B1",
+      "date": "2026-11-17",
+      "meal": "lunch",
+      "servings": 1.0,
+      "weekday": "Tuesday",
+      "batch_name": "tofu curry",
+      "kcal": 450.0,
+      "protein_g": 22.0
+     }
+    ]
+   },
+   "ms": 0.4
+  },
+  {
+   "step": 3,
+   "t": 1.687,
+   "kind": "llm",
+   "name": "gpt-4o-mini",
+   "result": {
+    "content": null,
+    "tool_calls": [
+     {
+      "name": "find_batches",
+      "arguments": "{\"name_query\":\"curry\"}"
+     }
+    ]
+   },
+   "tokens": {
+    "prompt": 1269,
+    "completion": 16
+   },
+   "ms": 833.4
+  },
+  {
+   "step": 4,
+   "t": 1.687,
+   "kind": "tool",
+   "name": "find_batches",
+   "args": {
+    "name_query": "curry"
+   },
+   "result": {
+    "batches": [
+     {
+      "id": "B1",
+      "name": "tofu curry",
+      "prepared_on": "2026-11-15",
+      "servings_total": 4.0,
+      "per_serving": {
+       "kcal": 450.0,
+       "protein_g": 22.0
+      },
+      "servings_left": 2.0
+     }
+    ]
+   },
+   "ms": 0.2
+  },
+  {
+   "step": 5,
+   "t": 3.248,
+   "kind": "llm",
+   "name": "gpt-4o-mini",
+   "result": {
+    "content": null,
+    "tool_calls": [
+     {
+      "name": "propose_changes",
+      "arguments": "{\"changes\":[{\"op\":\"update\",\"id\":\"E2\",\"set\":{\"servings\":0.5}},{\"op\":\"insert\",\"table\":\"events\",\"row\":{\"batch_id\":\"B1\",\"date\":\"2026-11-18\",\"meal\":\"lunch\",\"servings\":0.5}}]}"
+     }
+    ]
+   },
+   "tokens": {
+    "prompt": 1354,
+    "completion": 71
+   },
+   "ms": 1560.4
+  },
+  {
+   "step": 6,
+   "t": 3.248,
+   "kind": "tool",
+   "name": "propose_changes",
+   "args": {
+    "changes": [
+     {
+      "op": "update",
+      "id": "E2",
+      "set": {
+       "servings": 0.5
+      }
+     },
+     {
+      "op": "insert",
+      "table": "events",
+      "row": {
+       "batch_id": "B1",
+       "date": "2026-11-18",
+       "meal": "lunch",
+       "servings": 0.5
+      }
+     }
+    ]
+   },
+   "result": {
+    "change_set_id": "CS1",
+    "preview": [
+     "update E2 (tofu curry, 2026-11-17 lunch, 1 serving): servings 1.0 -> 0.5",
+     "insert new event (tofu curry, 2026-11-18 lunch, 0.5 serving)",
+     "servings left: tofu curry 2 -> 2"
+    ],
+    "next": "Nothing is saved yet. Call request_approval, then commit."
+   },
+   "ms": 0.3
+  },
+  {
+   "step": 7,
+   "t": 3.983,
+   "kind": "llm",
+   "name": "gpt-4o-mini",
+   "result": {
+    "content": null,
+    "tool_calls": [
+     {
+      "name": "request_approval",
+      "arguments": "{\"change_set_id\":\"CS1\"}"
+     }
+    ]
+   },
+   "tokens": {
+    "prompt": 1529,
+    "completion": 18
+   },
+   "ms": 734.7
+  },
+  {
+   "step": 8,
+   "t": 3.983,
+   "kind": "tool",
+   "name": "request_approval",
+   "args": {
+    "change_set_id": "CS1"
+   },
+   "result": {
+    "approved": true,
+    "user_reply": "Yes, go ahead."
+   },
+   "ms": 0.0
+  },
+  {
+   "step": 9,
+   "t": 4.828,
+   "kind": "llm",
+   "name": "gpt-4o-mini",
+   "result": {
+    "content": null,
+    "tool_calls": [
+     {
+      "name": "commit",
+      "arguments": "{\"change_set_id\":\"CS1\"}"
+     }
+    ]
+   },
+   "tokens": {
+    "prompt": 1570,
+    "completion": 16
+   },
+   "ms": 844.9
+  },
+  {
+   "step": 10,
+   "t": 4.829,
+   "kind": "tool",
+   "name": "commit",
+   "args": {
+    "change_set_id": "CS1"
+   },
+   "result": {
+    "committed": true,
+    "change_set_id": "CS1",
+    "changes_applied": 2
+   },
+   "ms": 0.7
+  },
+  {
+   "step": 11,
+   "t": 5.805,
+   "kind": "llm",
+   "name": "gpt-4o-mini",
+   "result": {
+    "content": "I updated Tuesday's curry log to reflect that you ate half of it on Tuesday and the other half today. The changes have been saved successfully.",
+    "tool_calls": []
+   },
+   "tokens": {
+    "prompt": 1612,
+    "completion": 30
+   },
+   "ms": 975.7
+  }
+ ],
+ "final_state": {
+  "batches": [
+   {
+    "id": "B1",
+    "name": "tofu curry",
+    "prepared_on": "2026-11-15",
+    "servings_total": 4.0,
+    "per_serving": {
+     "kcal": 450.0,
+     "protein_g": 22.0
+    }
+   }
+  ],
+  "events": [
+   {
+    "id": "E1",
+    "batch_id": "B1",
+    "date": "2026-11-16",
+    "meal": "lunch",
+    "servings": 1.0
+   },
+   {
+    "id": "E2",
+    "batch_id": "B1",
+    "date": "2026-11-17",
+    "meal": "lunch",
+    "servings": 0.5
+   },
+   {
+    "id": "E3",
+    "batch_id": "B1",
+    "date": "2026-11-18",
+    "meal": "lunch",
+    "servings": 0.5
+   }
+  ]
+ }
+}

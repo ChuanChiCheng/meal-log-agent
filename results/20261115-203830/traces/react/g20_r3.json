@@ -1,0 +1,218 @@
+{
+ "controller": "react",
+ "task_id": "g20",
+ "repeat": 3,
+ "split": "general",
+ "category": "edge_duplicate",
+ "type": "state",
+ "pass": false,
+ "state_ok": false,
+ "process_ok": false,
+ "answer_ok": true,
+ "problems": [
+  "unexpected event: chicken rice box 2026-11-15 lunch 1",
+  "required clarification never asked"
+ ],
+ "judge": null,
+ "judge_tokens": 0,
+ "turns": 3,
+ "tool_calls": 2,
+ "tool_errors": 0,
+ "clarify_rounds": 0,
+ "unnecessary_clarify": false,
+ "tokens": 4061,
+ "prompt_tokens": 3903,
+ "completion_tokens": 158,
+ "seconds": 4.217,
+ "violations": [],
+ "exhausted": null,
+ "error": null,
+ "answer": "It appears that the \"chicken rice box\" batch was prepared with a total of 2 servings, but there are three logged events consuming 1 serving each on November 14 and two on November 15. This totals 3 servings eaten, which exceeds the 2 servings available, resulting in -1 servings left.\n\nTo correct this, I can adjust one of the events from November 15 to reflect that only 1 serving was eaten instead of 2. Would you like me to proceed with this change?",
+ "question": "My chicken rice box shows -1 left. Something is off, please fix it.",
+ "note": "Identical rows are not proof of a duplicate; must ask. Deleting E2 or E3 is equivalent.",
+ "trace": [
+  {
+   "step": 1,
+   "t": 0.798,
+   "kind": "llm",
+   "name": "gpt-4o-mini",
+   "result": {
+    "content": null,
+    "tool_calls": [
+     {
+      "name": "find_batches",
+      "arguments": "{\"name_query\":\"chicken rice\"}"
+     }
+    ]
+   },
+   "tokens": {
+    "prompt": 1168,
+    "completion": 17
+   },
+   "ms": 797.5
+  },
+  {
+   "step": 2,
+   "t": 0.799,
+   "kind": "tool",
+   "name": "find_batches",
+   "args": {
+    "name_query": "chicken rice"
+   },
+   "result": {
+    "batches": [
+     {
+      "id": "B1",
+      "name": "chicken rice box",
+      "prepared_on": "2026-11-12",
+      "servings_total": 2.0,
+      "per_serving": {
+       "kcal": 520.0,
+       "protein_g": 38.0
+      },
+      "servings_left": -1.0
+     }
+    ]
+   },
+   "ms": 0.2
+  },
+  {
+   "step": 3,
+   "t": 1.817,
+   "kind": "llm",
+   "name": "gpt-4o-mini",
+   "result": {
+    "content": null,
+    "tool_calls": [
+     {
+      "name": "get_events",
+      "arguments": "{\"date_from\":\"2026-11-12\",\"date_to\":\"2026-11-16\",\"batch_id\":\"B1\"}"
+     }
+    ]
+   },
+   "tokens": {
+    "prompt": 1256,
+    "completion": 36
+   },
+   "ms": 1018.0
+  },
+  {
+   "step": 4,
+   "t": 1.817,
+   "kind": "tool",
+   "name": "get_events",
+   "args": {
+    "date_from": "2026-11-12",
+    "date_to": "2026-11-16",
+    "batch_id": "B1"
+   },
+   "result": {
+    "events": [
+     {
+      "id": "E1",
+      "batch_id": "B1",
+      "date": "2026-11-14",
+      "meal": "lunch",
+      "servings": 1.0,
+      "weekday": "Saturday",
+      "batch_name": "chicken rice box",
+      "kcal": 520.0,
+      "protein_g": 38.0
+     },
+     {
+      "id": "E2",
+      "batch_id": "B1",
+      "date": "2026-11-15",
+      "meal": "lunch",
+      "servings": 1.0,
+      "weekday": "Sunday",
+      "batch_name": "chicken rice box",
+      "kcal": 520.0,
+      "protein_g": 38.0
+     },
+     {
+      "id": "E3",
+      "batch_id": "B1",
+      "date": "2026-11-15",
+      "meal": "lunch",
+      "servings": 1.0,
+      "weekday": "Sunday",
+      "batch_name": "chicken rice box",
+      "kcal": 520.0,
+      "protein_g": 38.0
+     }
+    ]
+   },
+   "ms": 0.2
+  },
+  {
+   "step": 5,
+   "t": 4.218,
+   "kind": "llm",
+   "name": "gpt-4o-mini",
+   "result": {
+    "content": "It appears that the \"chicken rice box\" batch was prepared with a total of 2 servings, but there are three logged events consuming 1 serving each on November 14 and two on November 15. This totals 3 servings eaten, which exceeds the 2 servings available, resulting in -1 servings left.\n\nTo correct this, I can adjust one of the events from November 15 to reflect that only 1 serving was eaten instead of 2. Would you like me to proceed with this change?",
+    "tool_calls": []
+   },
+   "tokens": {
+    "prompt": 1479,
+    "completion": 105
+   },
+   "ms": 2401.1
+  }
+ ],
+ "final_state": {
+  "batches": [
+   {
+    "id": "B1",
+    "name": "chicken rice box",
+    "prepared_on": "2026-11-12",
+    "servings_total": 2.0,
+    "per_serving": {
+     "kcal": 520.0,
+     "protein_g": 38.0
+    }
+   },
+   {
+    "id": "B2",
+    "name": "beef broccoli box",
+    "prepared_on": "2026-11-12",
+    "servings_total": 3.0,
+    "per_serving": {
+     "kcal": 610.0,
+     "protein_g": 42.0
+    }
+   }
+  ],
+  "events": [
+   {
+    "id": "E1",
+    "batch_id": "B1",
+    "date": "2026-11-14",
+    "meal": "lunch",
+    "servings": 1.0
+   },
+   {
+    "id": "E2",
+    "batch_id": "B1",
+    "date": "2026-11-15",
+    "meal": "lunch",
+    "servings": 1.0
+   },
+   {
+    "id": "E3",
+    "batch_id": "B1",
+    "date": "2026-11-15",
+    "meal": "lunch",
+    "servings": 1.0
+   },
+   {
+    "id": "E4",
+    "batch_id": "B2",
+    "date": "2026-11-15",
+    "meal": "dinner",
+    "servings": 1.0
+   }
+  ]
+ }
+}

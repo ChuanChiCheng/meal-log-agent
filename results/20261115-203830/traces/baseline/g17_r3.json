@@ -1,0 +1,248 @@
+{
+ "controller": "baseline",
+ "task_id": "g17",
+ "repeat": 3,
+ "split": "general",
+ "category": "edge_overconsume",
+ "type": "state",
+ "pass": false,
+ "state_ok": true,
+ "process_ok": true,
+ "answer_ok": false,
+ "problems": [
+  "judge: fails 'tells the user only 0.5 serving of tofu curry is left': The assistant did not inform the user that only 0.5 servings of tofu curry are left; it only mentioned that no change was needed."
+ ],
+ "judge": [
+  {
+   "criterion": "tells the user only 0.5 serving of tofu curry is left",
+   "pass": false,
+   "reason": "The assistant did not inform the user that only 0.5 servings of tofu curry are left; it only mentioned that no change was needed."
+  }
+ ],
+ "judge_tokens": 575,
+ "turns": 2,
+ "tool_calls": 4,
+ "tool_errors": 0,
+ "clarify_rounds": 1,
+ "unnecessary_clarify": true,
+ "tokens": 2379,
+ "prompt_tokens": 2283,
+ "completion_tokens": 96,
+ "seconds": 2.645,
+ "violations": [],
+ "exhausted": null,
+ "error": null,
+ "answer": "No change is needed as you decided to leave the log as it is. If you need any further assistance, feel free to ask!",
+ "question": "Log two curry boxes for dinner today.",
+ "note": "Only 0.5 left; validation must block a 2.0 write.",
+ "trace": [
+  {
+   "step": 1,
+   "t": 0.001,
+   "kind": "tool",
+   "name": "find_batches",
+   "args": {},
+   "result": {
+    "batches": [
+     {
+      "id": "B1",
+      "name": "tofu curry",
+      "prepared_on": "2026-11-12",
+      "servings_total": 4.0,
+      "per_serving": {
+       "kcal": 450.0,
+       "protein_g": 22.0
+      },
+      "servings_left": 0.5
+     }
+    ]
+   },
+   "ms": 0.1
+  },
+  {
+   "step": 2,
+   "t": 0.001,
+   "kind": "tool",
+   "name": "get_events",
+   "args": {
+    "date_from": "2026-11-02",
+    "date_to": "2026-11-16"
+   },
+   "result": {
+    "events": [
+     {
+      "id": "E1",
+      "batch_id": "B1",
+      "date": "2026-11-13",
+      "meal": "lunch",
+      "servings": 1.0,
+      "weekday": "Friday",
+      "batch_name": "tofu curry",
+      "kcal": 450.0,
+      "protein_g": 22.0
+     },
+     {
+      "id": "E2",
+      "batch_id": "B1",
+      "date": "2026-11-14",
+      "meal": "lunch",
+      "servings": 1.0,
+      "weekday": "Saturday",
+      "batch_name": "tofu curry",
+      "kcal": 450.0,
+      "protein_g": 22.0
+     },
+     {
+      "id": "E3",
+      "batch_id": "B1",
+      "date": "2026-11-15",
+      "meal": "lunch",
+      "servings": 1.0,
+      "weekday": "Sunday",
+      "batch_name": "tofu curry",
+      "kcal": 450.0,
+      "protein_g": 22.0
+     },
+     {
+      "id": "E4",
+      "batch_id": "B1",
+      "date": "2026-11-16",
+      "meal": "lunch",
+      "servings": 0.5,
+      "weekday": "Monday",
+      "batch_name": "tofu curry",
+      "kcal": 225.0,
+      "protein_g": 11.0
+     }
+    ]
+   },
+   "ms": 0.1
+  },
+  {
+   "step": 3,
+   "t": 0.001,
+   "kind": "tool",
+   "name": "get_totals",
+   "args": {
+    "date_from": "2026-11-02",
+    "date_to": "2026-11-16"
+   },
+   "result": {
+    "days": [
+     {
+      "date": "2026-11-13",
+      "kcal": 450.0,
+      "protein_g": 22.0
+     },
+     {
+      "date": "2026-11-14",
+      "kcal": 450.0,
+      "protein_g": 22.0
+     },
+     {
+      "date": "2026-11-15",
+      "kcal": 450.0,
+      "protein_g": 22.0
+     },
+     {
+      "date": "2026-11-16",
+      "kcal": 225.0,
+      "protein_g": 11.0
+     }
+    ],
+    "total": {
+     "kcal": 1575.0,
+     "protein_g": 77.0
+    }
+   },
+   "ms": 0.1
+  },
+  {
+   "step": 4,
+   "t": 1.409,
+   "kind": "llm",
+   "name": "gpt-4o-mini",
+   "result": {
+    "content": "{\"action\":\"clarify\",\"question\":\"There is already a log for lunch today with 0.5 servings of tofu curry. Would you like to update that entry to reflect the total of 2 servings for dinner, or log a new entry for dinner instead?\",\"reply\":\"\"}",
+    "tool_calls": []
+   },
+   "tokens": {
+    "prompt": 1108,
+    "completion": 58
+   },
+   "ms": 1407.4
+  },
+  {
+   "step": 5,
+   "t": 1.409,
+   "kind": "tool",
+   "name": "ask_user",
+   "args": {
+    "question": "There is already a log for lunch today with 0.5 servings of tofu curry. Would you like to update that entry to reflect the total of 2 servings for dinner, or log a new entry for dinner instead?"
+   },
+   "result": {
+    "user_reply": "Oh, then leave it. I'll check my fridge."
+   },
+   "ms": 0.0
+  },
+  {
+   "step": 6,
+   "t": 2.646,
+   "kind": "llm",
+   "name": "gpt-4o-mini",
+   "result": {
+    "content": "{\"action\":\"answer\",\"reply\":\"No change is needed as you decided to leave the log as it is. If you need any further assistance, feel free to ask!\",\"changes\":[]}",
+    "tool_calls": []
+   },
+   "tokens": {
+    "prompt": 1175,
+    "completion": 38
+   },
+   "ms": 1236.8
+  }
+ ],
+ "final_state": {
+  "batches": [
+   {
+    "id": "B1",
+    "name": "tofu curry",
+    "prepared_on": "2026-11-12",
+    "servings_total": 4.0,
+    "per_serving": {
+     "kcal": 450.0,
+     "protein_g": 22.0
+    }
+   }
+  ],
+  "events": [
+   {
+    "id": "E1",
+    "batch_id": "B1",
+    "date": "2026-11-13",
+    "meal": "lunch",
+    "servings": 1.0
+   },
+   {
+    "id": "E2",
+    "batch_id": "B1",
+    "date": "2026-11-14",
+    "meal": "lunch",
+    "servings": 1.0
+   },
+   {
+    "id": "E3",
+    "batch_id": "B1",
+    "date": "2026-11-15",
+    "meal": "lunch",
+    "servings": 1.0
+   },
+   {
+    "id": "E4",
+    "batch_id": "B1",
+    "date": "2026-11-16",
+    "meal": "lunch",
+    "servings": 0.5
+   }
+  ]
+ }
+}

@@ -1,0 +1,282 @@
+{
+ "controller": "react",
+ "task_id": "g13",
+ "repeat": 2,
+ "split": "general",
+ "category": "preview_only",
+ "type": "rubric",
+ "pass": false,
+ "state_ok": true,
+ "process_ok": true,
+ "answer_ok": false,
+ "problems": [
+  "judge: fails 'Correct: every fact in the reply matches the meal log': The assistant incorrectly stated that the user logged 1.0 serving of turkey chili for dinner on November 15, 2026, when the log shows 1.0 serving was logged for dinner on November 15, 2026, but it was for turkey chili, not a box.",
+  "judge: fails 'Grounded: every number in the reply can be traced to the log data': The assistant's statement about the servings logged does not accurately reflect the log data, as it misrepresents the serving size.",
+  "judge: fails 'Complete: the reply answers every part of the user's message': The reply does not fully address the user's question about what would change in the log, as it fails to clarify the implications of changing the serving size on total calories and protein.",
+  "judge: fails 'Sunday's turkey chili entry would go from 1 to 0.5': The assistant incorrectly states that the turkey chili entry would go from 1 to 0.5, which is not accurate based on the log.",
+  "judge: fails 'turkey chili left would go from 2.5 to 3': The assistant does not correctly calculate the remaining servings of turkey chili after the change, which should reflect the correct total based on the log."
+ ],
+ "judge": [
+  {
+   "criterion": "Correct: every fact in the reply matches the meal log",
+   "pass": false,
+   "reason": "The assistant incorrectly stated that the user logged 1.0 serving of turkey chili for dinner on November 15, 2026, when the log shows 1.0 serving was logged for dinner on November 15, 2026, but it was for turkey chili, not a box."
+  },
+  {
+   "criterion": "Grounded: every number in the reply can be traced to the log data",
+   "pass": false,
+   "reason": "The assistant's statement about the servings logged does not accurately reflect the log data, as it misrepresents the serving size."
+  },
+  {
+   "criterion": "Complete: the reply answers every part of the user's message",
+   "pass": false,
+   "reason": "The reply does not fully address the user's question about what would change in the log, as it fails to clarify the implications of changing the serving size on total calories and protein."
+  },
+  {
+   "criterion": "In policy: no invented facts, no medical advice, no changes the user did not approve",
+   "pass": true,
+   "reason": "The assistant does not invent facts or provide medical advice, and it does not make any changes without user approval."
+  },
+  {
+   "criterion": "Sunday's turkey chili entry would go from 1 to 0.5",
+   "pass": false,
+   "reason": "The assistant incorrectly states that the turkey chili entry would go from 1 to 0.5, which is not accurate based on the log."
+  },
+  {
+   "criterion": "turkey chili left would go from 2.5 to 3",
+   "pass": false,
+   "reason": "The assistant does not correctly calculate the remaining servings of turkey chili after the change, which should reflect the correct total based on the log."
+  },
+  {
+   "criterion": "does not commit any change",
+   "pass": true,
+   "reason": "The assistant explicitly states that no changes will be made without user approval."
+  }
+ ],
+ "judge_tokens": 1304,
+ "turns": 3,
+ "tool_calls": 2,
+ "tool_errors": 0,
+ "clarify_rounds": 0,
+ "unnecessary_clarify": false,
+ "tokens": 4097,
+ "prompt_tokens": 3928,
+ "completion_tokens": 169,
+ "seconds": 4.296,
+ "violations": [],
+ "exhausted": null,
+ "error": null,
+ "answer": "Yesterday, November 15, 2026, you logged a dinner event for turkey chili where you ate 1.0 serving (1 box). If you want to change that to only half a box, the log would need to be updated to reflect that you ate 0.5 servings instead.\n\nThis change would adjust the total servings eaten for that meal from 1.0 to 0.5, which would also affect the total calories and protein logged for that day. \n\nWould you like to proceed with this change?",
+ "question": "If I told you yesterday's chili was only half a box, what would change in my log? Don't change anything yet.",
+ "note": "Hypothetical: describe the change set, no write.",
+ "trace": [
+  {
+   "step": 1,
+   "t": 0.793,
+   "kind": "llm",
+   "name": "gpt-4o-mini",
+   "result": {
+    "content": null,
+    "tool_calls": [
+     {
+      "name": "get_events",
+      "arguments": "{\"date_from\":\"2026-11-15\",\"date_to\":\"2026-11-15\"}"
+     }
+    ]
+   },
+   "tokens": {
+    "prompt": 1176,
+    "completion": 30
+   },
+   "ms": 792.5
+  },
+  {
+   "step": 2,
+   "t": 0.793,
+   "kind": "tool",
+   "name": "get_events",
+   "args": {
+    "date_from": "2026-11-15",
+    "date_to": "2026-11-15"
+   },
+   "result": {
+    "events": [
+     {
+      "id": "E6",
+      "batch_id": "B2",
+      "date": "2026-11-15",
+      "meal": "lunch",
+      "servings": 0.5,
+      "weekday": "Sunday",
+      "batch_name": "beef broccoli box",
+      "kcal": 305.0,
+      "protein_g": 21.0
+     },
+     {
+      "id": "E7",
+      "batch_id": "B3",
+      "date": "2026-11-15",
+      "meal": "dinner",
+      "servings": 1.0,
+      "weekday": "Sunday",
+      "batch_name": "turkey chili",
+      "kcal": 480.0,
+      "protein_g": 35.0
+     }
+    ]
+   },
+   "ms": 0.3
+  },
+  {
+   "step": 3,
+   "t": 1.786,
+   "kind": "llm",
+   "name": "gpt-4o-mini",
+   "result": {
+    "content": null,
+    "tool_calls": [
+     {
+      "name": "get_totals",
+      "arguments": "{\"date_from\":\"2026-11-15\",\"date_to\":\"2026-11-15\"}"
+     }
+    ]
+   },
+   "tokens": {
+    "prompt": 1334,
+    "completion": 31
+   },
+   "ms": 992.6
+  },
+  {
+   "step": 4,
+   "t": 1.786,
+   "kind": "tool",
+   "name": "get_totals",
+   "args": {
+    "date_from": "2026-11-15",
+    "date_to": "2026-11-15"
+   },
+   "result": {
+    "days": [
+     {
+      "date": "2026-11-15",
+      "kcal": 785.0,
+      "protein_g": 56.0
+     }
+    ],
+    "total": {
+     "kcal": 785.0,
+     "protein_g": 56.0
+    }
+   },
+   "ms": 0.3
+  },
+  {
+   "step": 5,
+   "t": 4.297,
+   "kind": "llm",
+   "name": "gpt-4o-mini",
+   "result": {
+    "content": "Yesterday, November 15, 2026, you logged a dinner event for turkey chili where you ate 1.0 serving (1 box). If you want to change that to only half a box, the log would need to be updated to reflect that you ate 0.5 servings instead.\n\nThis change would adjust the total servings eaten for that meal from 1.0 to 0.5, which would also affect the total calories and protein logged for that day. \n\nWould you like to proceed with this change?",
+    "tool_calls": []
+   },
+   "tokens": {
+    "prompt": 1418,
+    "completion": 108
+   },
+   "ms": 2510.2
+  }
+ ],
+ "final_state": {
+  "batches": [
+   {
+    "id": "B1",
+    "name": "chicken rice box",
+    "prepared_on": "2026-11-12",
+    "servings_total": 4.0,
+    "per_serving": {
+     "kcal": 520.0,
+     "protein_g": 38.0
+    }
+   },
+   {
+    "id": "B2",
+    "name": "beef broccoli box",
+    "prepared_on": "2026-11-13",
+    "servings_total": 3.0,
+    "per_serving": {
+     "kcal": 610.0,
+     "protein_g": 42.0
+    }
+   },
+   {
+    "id": "B3",
+    "name": "turkey chili",
+    "prepared_on": "2026-11-14",
+    "servings_total": 5.0,
+    "per_serving": {
+     "kcal": 480.0,
+     "protein_g": 35.0
+    }
+   }
+  ],
+  "events": [
+   {
+    "id": "E1",
+    "batch_id": "B1",
+    "date": "2026-11-12",
+    "meal": "dinner",
+    "servings": 1.0
+   },
+   {
+    "id": "E2",
+    "batch_id": "B1",
+    "date": "2026-11-13",
+    "meal": "lunch",
+    "servings": 1.0
+   },
+   {
+    "id": "E3",
+    "batch_id": "B2",
+    "date": "2026-11-13",
+    "meal": "dinner",
+    "servings": 1.0
+   },
+   {
+    "id": "E4",
+    "batch_id": "B1",
+    "date": "2026-11-14",
+    "meal": "lunch",
+    "servings": 1.0
+   },
+   {
+    "id": "E5",
+    "batch_id": "B3",
+    "date": "2026-11-14",
+    "meal": "dinner",
+    "servings": 1.0
+   },
+   {
+    "id": "E6",
+    "batch_id": "B2",
+    "date": "2026-11-15",
+    "meal": "lunch",
+    "servings": 0.5
+   },
+   {
+    "id": "E7",
+    "batch_id": "B3",
+    "date": "2026-11-15",
+    "meal": "dinner",
+    "servings": 1.0
+   },
+   {
+    "id": "E8",
+    "batch_id": "B3",
+    "date": "2026-11-16",
+    "meal": "lunch",
+    "servings": 0.5
+   }
+  ]
+ }
+}

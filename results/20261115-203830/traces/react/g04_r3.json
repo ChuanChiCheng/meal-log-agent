@@ -1,0 +1,275 @@
+{
+ "controller": "react",
+ "task_id": "g04",
+ "repeat": 3,
+ "split": "general",
+ "category": "consume",
+ "type": "state",
+ "pass": true,
+ "state_ok": true,
+ "process_ok": true,
+ "answer_ok": true,
+ "problems": [],
+ "judge": null,
+ "judge_tokens": 0,
+ "turns": 6,
+ "tool_calls": 5,
+ "tool_errors": 0,
+ "clarify_rounds": 0,
+ "unnecessary_clarify": false,
+ "tokens": 8262,
+ "prompt_tokens": 8095,
+ "completion_tokens": 167,
+ "seconds": 6.155,
+ "violations": [],
+ "exhausted": null,
+ "error": null,
+ "answer": "I logged that you had half a beef broccoli box for lunch today. There are now 1.5 servings left of that batch.",
+ "question": "Had half a beef broccoli box for lunch.",
+ "note": "Plain partial consumption.",
+ "trace": [
+  {
+   "step": 1,
+   "t": 0.729,
+   "kind": "llm",
+   "name": "gpt-4o-mini",
+   "result": {
+    "content": null,
+    "tool_calls": [
+     {
+      "name": "find_batches",
+      "arguments": "{\"name_query\":\"beef broccoli\"}"
+     }
+    ]
+   },
+   "tokens": {
+    "prompt": 1160,
+    "completion": 17
+   },
+   "ms": 728.1
+  },
+  {
+   "step": 2,
+   "t": 0.729,
+   "kind": "tool",
+   "name": "find_batches",
+   "args": {
+    "name_query": "beef broccoli"
+   },
+   "result": {
+    "batches": [
+     {
+      "id": "B1",
+      "name": "beef broccoli box",
+      "prepared_on": "2026-11-15",
+      "servings_total": 3.0,
+      "per_serving": {
+       "kcal": 610.0,
+       "protein_g": 42.0
+      },
+      "servings_left": 2.0
+     }
+    ]
+   },
+   "ms": 0.2
+  },
+  {
+   "step": 3,
+   "t": 1.854,
+   "kind": "llm",
+   "name": "gpt-4o-mini",
+   "result": {
+    "content": null,
+    "tool_calls": [
+     {
+      "name": "get_events",
+      "arguments": "{\"date_from\":\"2026-11-16\",\"date_to\":\"2026-11-16\",\"batch_id\":\"B1\"}"
+     }
+    ]
+   },
+   "tokens": {
+    "prompt": 1247,
+    "completion": 36
+   },
+   "ms": 1124.7
+  },
+  {
+   "step": 4,
+   "t": 1.854,
+   "kind": "tool",
+   "name": "get_events",
+   "args": {
+    "date_from": "2026-11-16",
+    "date_to": "2026-11-16",
+    "batch_id": "B1"
+   },
+   "result": {
+    "events": []
+   },
+   "ms": 0.2
+  },
+  {
+   "step": 5,
+   "t": 3.544,
+   "kind": "llm",
+   "name": "gpt-4o-mini",
+   "result": {
+    "content": null,
+    "tool_calls": [
+     {
+      "name": "propose_changes",
+      "arguments": "{\"changes\":[{\"op\":\"insert\",\"table\":\"events\",\"row\":{\"batch_id\":\"B1\",\"date\":\"2026-11-16\",\"meal\":\"lunch\",\"servings\":0.5}}]}"
+     }
+    ]
+   },
+   "tokens": {
+    "prompt": 1295,
+    "completion": 52
+   },
+   "ms": 1689.8
+  },
+  {
+   "step": 6,
+   "t": 3.544,
+   "kind": "tool",
+   "name": "propose_changes",
+   "args": {
+    "changes": [
+     {
+      "op": "insert",
+      "table": "events",
+      "row": {
+       "batch_id": "B1",
+       "date": "2026-11-16",
+       "meal": "lunch",
+       "servings": 0.5
+      }
+     }
+    ]
+   },
+   "result": {
+    "change_set_id": "CS1",
+    "preview": [
+     "insert new event (beef broccoli box, 2026-11-16 lunch, 0.5 serving)",
+     "servings left: beef broccoli box 2 -> 1.5"
+    ],
+    "next": "Nothing is saved yet. Call request_approval, then commit."
+   },
+   "ms": 0.2
+  },
+  {
+   "step": 7,
+   "t": 4.373,
+   "kind": "llm",
+   "name": "gpt-4o-mini",
+   "result": {
+    "content": null,
+    "tool_calls": [
+     {
+      "name": "request_approval",
+      "arguments": "{\"change_set_id\":\"CS1\"}"
+     }
+    ]
+   },
+   "tokens": {
+    "prompt": 1423,
+    "completion": 18
+   },
+   "ms": 829.4
+  },
+  {
+   "step": 8,
+   "t": 4.374,
+   "kind": "tool",
+   "name": "request_approval",
+   "args": {
+    "change_set_id": "CS1"
+   },
+   "result": {
+    "approved": true,
+    "user_reply": "Yes, go ahead."
+   },
+   "ms": 0.0
+  },
+  {
+   "step": 9,
+   "t": 5.185,
+   "kind": "llm",
+   "name": "gpt-4o-mini",
+   "result": {
+    "content": null,
+    "tool_calls": [
+     {
+      "name": "commit",
+      "arguments": "{\"change_set_id\":\"CS1\"}"
+     }
+    ]
+   },
+   "tokens": {
+    "prompt": 1464,
+    "completion": 16
+   },
+   "ms": 811.5
+  },
+  {
+   "step": 10,
+   "t": 5.186,
+   "kind": "tool",
+   "name": "commit",
+   "args": {
+    "change_set_id": "CS1"
+   },
+   "result": {
+    "committed": true,
+    "change_set_id": "CS1",
+    "changes_applied": 1
+   },
+   "ms": 0.6
+  },
+  {
+   "step": 11,
+   "t": 6.155,
+   "kind": "llm",
+   "name": "gpt-4o-mini",
+   "result": {
+    "content": "I logged that you had half a beef broccoli box for lunch today. There are now 1.5 servings left of that batch.",
+    "tool_calls": []
+   },
+   "tokens": {
+    "prompt": 1506,
+    "completion": 28
+   },
+   "ms": 969.6
+  }
+ ],
+ "final_state": {
+  "batches": [
+   {
+    "id": "B1",
+    "name": "beef broccoli box",
+    "prepared_on": "2026-11-15",
+    "servings_total": 3.0,
+    "per_serving": {
+     "kcal": 610.0,
+     "protein_g": 42.0
+    }
+   }
+  ],
+  "events": [
+   {
+    "id": "E1",
+    "batch_id": "B1",
+    "date": "2026-11-15",
+    "meal": "dinner",
+    "servings": 1.0
+   },
+   {
+    "id": "E2",
+    "batch_id": "B1",
+    "date": "2026-11-16",
+    "meal": "lunch",
+    "servings": 0.5
+   }
+  ]
+ }
+}

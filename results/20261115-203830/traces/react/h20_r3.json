@@ -1,0 +1,354 @@
+{
+ "controller": "react",
+ "task_id": "h20",
+ "repeat": 3,
+ "split": "heldout",
+ "category": "missing_yesterday",
+ "type": "state",
+ "pass": false,
+ "state_ok": false,
+ "process_ok": true,
+ "answer_ok": true,
+ "problems": [
+  "missing event: turkey chili 2026-11-16 any meal 0.5",
+  "unexpected event: turkey chili 2026-11-14 dinner 1",
+  "unexpected event: turkey chili 2026-11-16 lunch 1"
+ ],
+ "judge": null,
+ "judge_tokens": 0,
+ "turns": 7,
+ "tool_calls": 7,
+ "tool_errors": 0,
+ "clarify_rounds": 1,
+ "unnecessary_clarify": false,
+ "tokens": 10756,
+ "prompt_tokens": 10439,
+ "completion_tokens": 317,
+ "seconds": 7.917,
+ "violations": [],
+ "exhausted": null,
+ "error": null,
+ "answer": "I logged that you ate half a serving of turkey chili for dinner last night and one serving for lunch today. The remaining servings of turkey chili are now 1.5.",
+ "question": "Last night's chili was only half a box. I ate the rest today.",
+ "note": "No chili last night; answer says Saturday's entry is the misdated one.",
+ "trace": [
+  {
+   "step": 1,
+   "t": 1.422,
+   "kind": "llm",
+   "name": "gpt-4o-mini",
+   "result": {
+    "content": null,
+    "tool_calls": [
+     {
+      "name": "find_batches",
+      "arguments": "{\"name_query\": \"chili\"}"
+     },
+     {
+      "name": "get_events",
+      "arguments": "{\"date_from\": \"2026-11-15\", \"date_to\": \"2026-11-16\"}"
+     }
+    ]
+   },
+   "tokens": {
+    "prompt": 1166,
+    "completion": 62
+   },
+   "ms": 1421.3
+  },
+  {
+   "step": 2,
+   "t": 1.422,
+   "kind": "tool",
+   "name": "find_batches",
+   "args": {
+    "name_query": "chili"
+   },
+   "result": {
+    "batches": [
+     {
+      "id": "B1",
+      "name": "turkey chili",
+      "prepared_on": "2026-11-12",
+      "servings_total": 5.0,
+      "per_serving": {
+       "kcal": 480.0,
+       "protein_g": 35.0
+      },
+      "servings_left": 3.0
+     }
+    ]
+   },
+   "ms": 0.4
+  },
+  {
+   "step": 3,
+   "t": 1.422,
+   "kind": "tool",
+   "name": "get_events",
+   "args": {
+    "date_from": "2026-11-15",
+    "date_to": "2026-11-16"
+   },
+   "result": {
+    "events": []
+   },
+   "ms": 0.1
+  },
+  {
+   "step": 4,
+   "t": 2.857,
+   "kind": "llm",
+   "name": "gpt-4o-mini",
+   "result": {
+    "content": null,
+    "tool_calls": [
+     {
+      "name": "ask_user",
+      "arguments": "{\"question\":\"I found a batch of turkey chili prepared on November 12 with 3 servings left. However, there are no logged events for last night. Did you mean to log the half serving you ate last night, or should I log the full serving you ate today instead?\"}"
+     }
+    ]
+   },
+   "tokens": {
+    "prompt": 1319,
+    "completion": 67
+   },
+   "ms": 1435.0
+  },
+  {
+   "step": 5,
+   "t": 2.857,
+   "kind": "tool",
+   "name": "ask_user",
+   "args": {
+    "question": "I found a batch of turkey chili prepared on November 12 with 3 servings left. However, there are no logged events for last night. Did you mean to log the half serving you ate last night, or should I log the full serving you ate today instead?"
+   },
+   "result": {
+    "user_reply": "Oh, the Saturday dinner entry is wrong. That was actually last night, and it should be half a box."
+   },
+   "ms": 0.0
+  },
+  {
+   "step": 6,
+   "t": 3.722,
+   "kind": "llm",
+   "name": "gpt-4o-mini",
+   "result": {
+    "content": null,
+    "tool_calls": [
+     {
+      "name": "get_events",
+      "arguments": "{\"date_from\":\"2026-11-15\",\"date_to\":\"2026-11-15\"}"
+     }
+    ]
+   },
+   "tokens": {
+    "prompt": 1422,
+    "completion": 30
+   },
+   "ms": 864.9
+  },
+  {
+   "step": 7,
+   "t": 3.723,
+   "kind": "tool",
+   "name": "get_events",
+   "args": {
+    "date_from": "2026-11-15",
+    "date_to": "2026-11-15"
+   },
+   "result": {
+    "events": []
+   },
+   "ms": 0.1
+  },
+  {
+   "step": 8,
+   "t": 5.557,
+   "kind": "llm",
+   "name": "gpt-4o-mini",
+   "result": {
+    "content": null,
+    "tool_calls": [
+     {
+      "name": "propose_changes",
+      "arguments": "{\"changes\":[{\"op\":\"insert\",\"table\":\"events\",\"row\":{\"batch_id\":\"B1\",\"date\":\"2026-11-15\",\"meal\":\"dinner\",\"servings\":0.5}},{\"op\":\"insert\",\"table\":\"events\",\"row\":{\"batch_id\":\"B1\",\"date\":\"2026-11-16\",\"meal\":\"lunch\",\"servings\":1}}]}"
+     }
+    ]
+   },
+   "tokens": {
+    "prompt": 1464,
+    "completion": 88
+   },
+   "ms": 1834.1
+  },
+  {
+   "step": 9,
+   "t": 5.557,
+   "kind": "tool",
+   "name": "propose_changes",
+   "args": {
+    "changes": [
+     {
+      "op": "insert",
+      "table": "events",
+      "row": {
+       "batch_id": "B1",
+       "date": "2026-11-15",
+       "meal": "dinner",
+       "servings": 0.5
+      }
+     },
+     {
+      "op": "insert",
+      "table": "events",
+      "row": {
+       "batch_id": "B1",
+       "date": "2026-11-16",
+       "meal": "lunch",
+       "servings": 1
+      }
+     }
+    ]
+   },
+   "result": {
+    "change_set_id": "CS1",
+    "preview": [
+     "insert new event (turkey chili, 2026-11-15 dinner, 0.5 serving)",
+     "insert new event (turkey chili, 2026-11-16 lunch, 1 serving)",
+     "servings left: turkey chili 3 -> 1.5"
+    ],
+    "next": "Nothing is saved yet. Call request_approval, then commit."
+   },
+   "ms": 0.2
+  },
+  {
+   "step": 10,
+   "t": 6.486,
+   "kind": "llm",
+   "name": "gpt-4o-mini",
+   "result": {
+    "content": null,
+    "tool_calls": [
+     {
+      "name": "request_approval",
+      "arguments": "{\"change_set_id\":\"CS1\"}"
+     }
+    ]
+   },
+   "tokens": {
+    "prompt": 1648,
+    "completion": 18
+   },
+   "ms": 928.9
+  },
+  {
+   "step": 11,
+   "t": 6.486,
+   "kind": "tool",
+   "name": "request_approval",
+   "args": {
+    "change_set_id": "CS1"
+   },
+   "result": {
+    "approved": true,
+    "user_reply": "Yes, go ahead."
+   },
+   "ms": 0.0
+  },
+  {
+   "step": 12,
+   "t": 7.095,
+   "kind": "llm",
+   "name": "gpt-4o-mini",
+   "result": {
+    "content": null,
+    "tool_calls": [
+     {
+      "name": "commit",
+      "arguments": "{\"change_set_id\":\"CS1\"}"
+     }
+    ]
+   },
+   "tokens": {
+    "prompt": 1689,
+    "completion": 16
+   },
+   "ms": 609.1
+  },
+  {
+   "step": 13,
+   "t": 7.096,
+   "kind": "tool",
+   "name": "commit",
+   "args": {
+    "change_set_id": "CS1"
+   },
+   "result": {
+    "committed": true,
+    "change_set_id": "CS1",
+    "changes_applied": 2
+   },
+   "ms": 0.5
+  },
+  {
+   "step": 14,
+   "t": 7.917,
+   "kind": "llm",
+   "name": "gpt-4o-mini",
+   "result": {
+    "content": "I logged that you ate half a serving of turkey chili for dinner last night and one serving for lunch today. The remaining servings of turkey chili are now 1.5.",
+    "tool_calls": []
+   },
+   "tokens": {
+    "prompt": 1731,
+    "completion": 36
+   },
+   "ms": 821.5
+  }
+ ],
+ "final_state": {
+  "batches": [
+   {
+    "id": "B1",
+    "name": "turkey chili",
+    "prepared_on": "2026-11-12",
+    "servings_total": 5.0,
+    "per_serving": {
+     "kcal": 480.0,
+     "protein_g": 35.0
+    }
+   }
+  ],
+  "events": [
+   {
+    "id": "E1",
+    "batch_id": "B1",
+    "date": "2026-11-13",
+    "meal": "dinner",
+    "servings": 1.0
+   },
+   {
+    "id": "E2",
+    "batch_id": "B1",
+    "date": "2026-11-14",
+    "meal": "dinner",
+    "servings": 1.0
+   },
+   {
+    "id": "E3",
+    "batch_id": "B1",
+    "date": "2026-11-15",
+    "meal": "dinner",
+    "servings": 0.5
+   },
+   {
+    "id": "E4",
+    "batch_id": "B1",
+    "date": "2026-11-16",
+    "meal": "lunch",
+    "servings": 1.0
+   }
+  ]
+ }
+}

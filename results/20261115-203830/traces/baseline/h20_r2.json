@@ -1,0 +1,270 @@
+{
+ "controller": "baseline",
+ "task_id": "h20",
+ "repeat": 2,
+ "split": "heldout",
+ "category": "missing_yesterday",
+ "type": "state",
+ "pass": false,
+ "state_ok": false,
+ "process_ok": true,
+ "answer_ok": true,
+ "problems": [
+  "missing event: turkey chili 2026-11-15 dinner 0.5",
+  "unexpected event: turkey chili 2026-11-14 dinner 0.5"
+ ],
+ "judge": null,
+ "judge_tokens": 0,
+ "turns": 2,
+ "tool_calls": 7,
+ "tool_errors": 0,
+ "clarify_rounds": 1,
+ "unnecessary_clarify": false,
+ "tokens": 2149,
+ "prompt_tokens": 1987,
+ "completion_tokens": 162,
+ "seconds": 3.873,
+ "violations": [],
+ "exhausted": null,
+ "error": null,
+ "answer": "I've updated the entry for last night's dinner to reflect that you ate half a box of chili. I've also logged a new event for today for the remaining half box. Here are the changes:\n- update E2 (turkey chili, 2026-11-14 dinner, 1 serving): servings 1.0 -> 0.5\n- insert new event (turkey chili, 2026-11-16 dinner, 0.5 serving)\n- servings left: turkey chili 3 -> 3",
+ "question": "Last night's chili was only half a box. I ate the rest today.",
+ "note": "No chili last night; answer says Saturday's entry is the misdated one.",
+ "trace": [
+  {
+   "step": 1,
+   "t": 0.001,
+   "kind": "tool",
+   "name": "find_batches",
+   "args": {},
+   "result": {
+    "batches": [
+     {
+      "id": "B1",
+      "name": "turkey chili",
+      "prepared_on": "2026-11-12",
+      "servings_total": 5.0,
+      "per_serving": {
+       "kcal": 480.0,
+       "protein_g": 35.0
+      },
+      "servings_left": 3.0
+     }
+    ]
+   },
+   "ms": 0.1
+  },
+  {
+   "step": 2,
+   "t": 0.001,
+   "kind": "tool",
+   "name": "get_events",
+   "args": {
+    "date_from": "2026-11-02",
+    "date_to": "2026-11-16"
+   },
+   "result": {
+    "events": [
+     {
+      "id": "E1",
+      "batch_id": "B1",
+      "date": "2026-11-13",
+      "meal": "dinner",
+      "servings": 1.0,
+      "weekday": "Friday",
+      "batch_name": "turkey chili",
+      "kcal": 480.0,
+      "protein_g": 35.0
+     },
+     {
+      "id": "E2",
+      "batch_id": "B1",
+      "date": "2026-11-14",
+      "meal": "dinner",
+      "servings": 1.0,
+      "weekday": "Saturday",
+      "batch_name": "turkey chili",
+      "kcal": 480.0,
+      "protein_g": 35.0
+     }
+    ]
+   },
+   "ms": 0.1
+  },
+  {
+   "step": 3,
+   "t": 0.001,
+   "kind": "tool",
+   "name": "get_totals",
+   "args": {
+    "date_from": "2026-11-02",
+    "date_to": "2026-11-16"
+   },
+   "result": {
+    "days": [
+     {
+      "date": "2026-11-13",
+      "kcal": 480.0,
+      "protein_g": 35.0
+     },
+     {
+      "date": "2026-11-14",
+      "kcal": 480.0,
+      "protein_g": 35.0
+     }
+    ],
+    "total": {
+     "kcal": 960.0,
+     "protein_g": 70.0
+    }
+   },
+   "ms": 0.1
+  },
+  {
+   "step": 4,
+   "t": 1.58,
+   "kind": "llm",
+   "name": "gpt-4o-mini",
+   "result": {
+    "content": "{\"action\":\"clarify\",\"question\":\"Did you mean to update the event from last night (November 15) to reflect that you ate half a box, and then log a new event for today (November 16) for the remaining half box?\",\"reply\":\"\"}",
+    "tool_calls": []
+   },
+   "tokens": {
+    "prompt": 955,
+    "completion": 56
+   },
+   "ms": 1579.0
+  },
+  {
+   "step": 5,
+   "t": 1.58,
+   "kind": "tool",
+   "name": "ask_user",
+   "args": {
+    "question": "Did you mean to update the event from last night (November 15) to reflect that you ate half a box, and then log a new event for today (November 16) for the remaining half box?"
+   },
+   "result": {
+    "user_reply": "Oh, the Saturday dinner entry is wrong. That was actually last night, and it should be half a box."
+   },
+   "ms": 0.0
+  },
+  {
+   "step": 6,
+   "t": 3.873,
+   "kind": "llm",
+   "name": "gpt-4o-mini",
+   "result": {
+    "content": "{\"action\":\"change\",\"reply\":\"I've updated the entry for last night's dinner to reflect that you ate half a box of chili. I've also logged a new event for today for the remaining half box. Here are the changes:\",\"changes\":[{\"op\":\"update\",\"id\":\"E2\",\"set\":{\"servings\":0.5}},{\"op\":\"insert\",\"table\":\"events\",\"row\":{\"batch_id\":\"B1\",\"date\":\"2026-11-16\",\"meal\":\"dinner\",\"servings\":0.5}}]}",
+    "tool_calls": []
+   },
+   "tokens": {
+    "prompt": 1032,
+    "completion": 106
+   },
+   "ms": 2292.4
+  },
+  {
+   "step": 7,
+   "t": 3.873,
+   "kind": "tool",
+   "name": "propose_changes",
+   "args": {
+    "changes": [
+     {
+      "op": "update",
+      "id": "E2",
+      "set": {
+       "servings": 0.5
+      }
+     },
+     {
+      "op": "insert",
+      "table": "events",
+      "row": {
+       "batch_id": "B1",
+       "date": "2026-11-16",
+       "meal": "dinner",
+       "servings": 0.5
+      }
+     }
+    ]
+   },
+   "result": {
+    "change_set_id": "CS1",
+    "preview": [
+     "update E2 (turkey chili, 2026-11-14 dinner, 1 serving): servings 1.0 -> 0.5",
+     "insert new event (turkey chili, 2026-11-16 dinner, 0.5 serving)",
+     "servings left: turkey chili 3 -> 3"
+    ],
+    "next": "Nothing is saved yet. Call request_approval, then commit."
+   },
+   "ms": 0.2
+  },
+  {
+   "step": 8,
+   "t": 3.873,
+   "kind": "tool",
+   "name": "request_approval",
+   "args": {
+    "change_set_id": "CS1"
+   },
+   "result": {
+    "approved": true,
+    "user_reply": "Yes, go ahead."
+   },
+   "ms": 0.0
+  },
+  {
+   "step": 9,
+   "t": 3.873,
+   "kind": "tool",
+   "name": "commit",
+   "args": {
+    "change_set_id": "CS1"
+   },
+   "result": {
+    "committed": true,
+    "change_set_id": "CS1",
+    "changes_applied": 2
+   },
+   "ms": 0.4
+  }
+ ],
+ "final_state": {
+  "batches": [
+   {
+    "id": "B1",
+    "name": "turkey chili",
+    "prepared_on": "2026-11-12",
+    "servings_total": 5.0,
+    "per_serving": {
+     "kcal": 480.0,
+     "protein_g": 35.0
+    }
+   }
+  ],
+  "events": [
+   {
+    "id": "E1",
+    "batch_id": "B1",
+    "date": "2026-11-13",
+    "meal": "dinner",
+    "servings": 1.0
+   },
+   {
+    "id": "E2",
+    "batch_id": "B1",
+    "date": "2026-11-14",
+    "meal": "dinner",
+    "servings": 0.5
+   },
+   {
+    "id": "E3",
+    "batch_id": "B1",
+    "date": "2026-11-16",
+    "meal": "dinner",
+    "servings": 0.5
+   }
+  ]
+ }
+}

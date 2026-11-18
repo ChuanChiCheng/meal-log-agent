@@ -1,0 +1,283 @@
+{
+ "controller": "baseline",
+ "task_id": "d02",
+ "repeat": 1,
+ "split": "dev",
+ "category": "ambiguous_batch",
+ "type": "state",
+ "pass": true,
+ "state_ok": true,
+ "process_ok": true,
+ "answer_ok": true,
+ "problems": [],
+ "judge": null,
+ "judge_tokens": 0,
+ "turns": 2,
+ "tool_calls": 7,
+ "tool_errors": 0,
+ "clarify_rounds": 1,
+ "unnecessary_clarify": false,
+ "tokens": 2175,
+ "prompt_tokens": 2035,
+ "completion_tokens": 140,
+ "seconds": 3.302,
+ "violations": [],
+ "exhausted": null,
+ "error": null,
+ "answer": "I've updated the log to reflect that you ate half of the chicken pasta box for dinner yesterday and finished the remaining half today.\n- update E2 (chicken pasta box, 2026-11-15 dinner, 1 serving): servings 1.0 -> 0.5\n- insert new event (chicken pasta box, 2026-11-16 dinner, 0.5 serving)\n- servings left: chicken pasta box 2 -> 2",
+ "question": "I only ate half of yesterday's chicken box and finished it today.",
+ "note": "Proposal demo 2. Two chicken batches eaten yesterday; must ask before any write.",
+ "trace": [
+  {
+   "step": 1,
+   "t": 0.001,
+   "kind": "tool",
+   "name": "find_batches",
+   "args": {},
+   "result": {
+    "batches": [
+     {
+      "id": "B1",
+      "name": "chicken rice box",
+      "prepared_on": "2026-11-12",
+      "servings_total": 4.0,
+      "per_serving": {
+       "kcal": 520.0,
+       "protein_g": 38.0
+      },
+      "servings_left": 3.0
+     },
+     {
+      "id": "B2",
+      "name": "chicken pasta box",
+      "prepared_on": "2026-11-14",
+      "servings_total": 3.0,
+      "per_serving": {
+       "kcal": 580.0,
+       "protein_g": 36.0
+      },
+      "servings_left": 2.0
+     }
+    ]
+   },
+   "ms": 0.1
+  },
+  {
+   "step": 2,
+   "t": 0.001,
+   "kind": "tool",
+   "name": "get_events",
+   "args": {
+    "date_from": "2026-11-02",
+    "date_to": "2026-11-16"
+   },
+   "result": {
+    "events": [
+     {
+      "id": "E1",
+      "batch_id": "B1",
+      "date": "2026-11-15",
+      "meal": "lunch",
+      "servings": 1.0,
+      "weekday": "Sunday",
+      "batch_name": "chicken rice box",
+      "kcal": 520.0,
+      "protein_g": 38.0
+     },
+     {
+      "id": "E2",
+      "batch_id": "B2",
+      "date": "2026-11-15",
+      "meal": "dinner",
+      "servings": 1.0,
+      "weekday": "Sunday",
+      "batch_name": "chicken pasta box",
+      "kcal": 580.0,
+      "protein_g": 36.0
+     }
+    ]
+   },
+   "ms": 0.1
+  },
+  {
+   "step": 3,
+   "t": 0.001,
+   "kind": "tool",
+   "name": "get_totals",
+   "args": {
+    "date_from": "2026-11-02",
+    "date_to": "2026-11-16"
+   },
+   "result": {
+    "days": [
+     {
+      "date": "2026-11-15",
+      "kcal": 1100.0,
+      "protein_g": 74.0
+     }
+    ],
+    "total": {
+     "kcal": 1100.0,
+     "protein_g": 74.0
+    }
+   },
+   "ms": 0.2
+  },
+  {
+   "step": 4,
+   "t": 1.355,
+   "kind": "llm",
+   "name": "gpt-4o-mini",
+   "result": {
+    "content": "{\"action\":\"clarify\",\"question\":\"Did you mean you want to update the event for yesterday's lunch to reflect that you ate half of the chicken rice box, and then log the remaining half as eaten today?\",\"reply\":\"\"}",
+    "tool_calls": []
+   },
+   "tokens": {
+    "prompt": 991,
+    "completion": 48
+   },
+   "ms": 1353.9
+  },
+  {
+   "step": 5,
+   "t": 1.355,
+   "kind": "tool",
+   "name": "ask_user",
+   "args": {
+    "question": "Did you mean you want to update the event for yesterday's lunch to reflect that you ate half of the chicken rice box, and then log the remaining half as eaten today?"
+   },
+   "result": {
+    "user_reply": "The chicken pasta, from dinner."
+   },
+   "ms": 0.0
+  },
+  {
+   "step": 6,
+   "t": 3.302,
+   "kind": "llm",
+   "name": "gpt-4o-mini",
+   "result": {
+    "content": "{\"action\":\"change\",\"reply\":\"I've updated the log to reflect that you ate half of the chicken pasta box for dinner yesterday and finished the remaining half today.\",\"changes\":[{\"op\":\"update\",\"id\":\"E2\",\"set\":{\"servings\":0.5}},{\"op\":\"insert\",\"table\":\"events\",\"row\":{\"batch_id\":\"B2\",\"date\":\"2026-11-16\",\"meal\":\"dinner\",\"servings\":0.5}}]}",
+    "tool_calls": []
+   },
+   "tokens": {
+    "prompt": 1044,
+    "completion": 92
+   },
+   "ms": 1946.4
+  },
+  {
+   "step": 7,
+   "t": 3.302,
+   "kind": "tool",
+   "name": "propose_changes",
+   "args": {
+    "changes": [
+     {
+      "op": "update",
+      "id": "E2",
+      "set": {
+       "servings": 0.5
+      }
+     },
+     {
+      "op": "insert",
+      "table": "events",
+      "row": {
+       "batch_id": "B2",
+       "date": "2026-11-16",
+       "meal": "dinner",
+       "servings": 0.5
+      }
+     }
+    ]
+   },
+   "result": {
+    "change_set_id": "CS1",
+    "preview": [
+     "update E2 (chicken pasta box, 2026-11-15 dinner, 1 serving): servings 1.0 -> 0.5",
+     "insert new event (chicken pasta box, 2026-11-16 dinner, 0.5 serving)",
+     "servings left: chicken pasta box 2 -> 2"
+    ],
+    "next": "Nothing is saved yet. Call request_approval, then commit."
+   },
+   "ms": 0.3
+  },
+  {
+   "step": 8,
+   "t": 3.302,
+   "kind": "tool",
+   "name": "request_approval",
+   "args": {
+    "change_set_id": "CS1"
+   },
+   "result": {
+    "approved": true,
+    "user_reply": "Yes, go ahead."
+   },
+   "ms": 0.0
+  },
+  {
+   "step": 9,
+   "t": 3.303,
+   "kind": "tool",
+   "name": "commit",
+   "args": {
+    "change_set_id": "CS1"
+   },
+   "result": {
+    "committed": true,
+    "change_set_id": "CS1",
+    "changes_applied": 2
+   },
+   "ms": 1.0
+  }
+ ],
+ "final_state": {
+  "batches": [
+   {
+    "id": "B1",
+    "name": "chicken rice box",
+    "prepared_on": "2026-11-12",
+    "servings_total": 4.0,
+    "per_serving": {
+     "kcal": 520.0,
+     "protein_g": 38.0
+    }
+   },
+   {
+    "id": "B2",
+    "name": "chicken pasta box",
+    "prepared_on": "2026-11-14",
+    "servings_total": 3.0,
+    "per_serving": {
+     "kcal": 580.0,
+     "protein_g": 36.0
+    }
+   }
+  ],
+  "events": [
+   {
+    "id": "E1",
+    "batch_id": "B1",
+    "date": "2026-11-15",
+    "meal": "lunch",
+    "servings": 1.0
+   },
+   {
+    "id": "E2",
+    "batch_id": "B2",
+    "date": "2026-11-15",
+    "meal": "dinner",
+    "servings": 0.5
+   },
+   {
+    "id": "E3",
+    "batch_id": "B2",
+    "date": "2026-11-16",
+    "meal": "dinner",
+    "servings": 0.5
+   }
+  ]
+ }
+}

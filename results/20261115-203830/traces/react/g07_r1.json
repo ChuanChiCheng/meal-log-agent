@@ -1,0 +1,183 @@
+{
+ "controller": "react",
+ "task_id": "g07",
+ "repeat": 1,
+ "split": "general",
+ "category": "query",
+ "type": "exact",
+ "pass": true,
+ "state_ok": true,
+ "process_ok": true,
+ "answer_ok": true,
+ "problems": [],
+ "judge": null,
+ "judge_tokens": 0,
+ "turns": 2,
+ "tool_calls": 1,
+ "tool_errors": 0,
+ "clarify_rounds": 0,
+ "unnecessary_clarify": false,
+ "tokens": 2460,
+ "prompt_tokens": 2412,
+ "completion_tokens": 48,
+ "seconds": 1.745,
+ "violations": [],
+ "exhausted": null,
+ "error": null,
+ "answer": "Yesterday, you consumed a total of 785 calories from your meal preps.",
+ "question": "How many calories did I eat from my meal preps yesterday?",
+ "note": "0.5 x 610 + 1 x 480.",
+ "trace": [
+  {
+   "step": 1,
+   "t": 0.887,
+   "kind": "llm",
+   "name": "gpt-4o-mini",
+   "result": {
+    "content": null,
+    "tool_calls": [
+     {
+      "name": "get_totals",
+      "arguments": "{\"date_from\":\"2026-11-15\",\"date_to\":\"2026-11-15\"}"
+     }
+    ]
+   },
+   "tokens": {
+    "prompt": 1164,
+    "completion": 31
+   },
+   "ms": 885.8
+  },
+  {
+   "step": 2,
+   "t": 0.887,
+   "kind": "tool",
+   "name": "get_totals",
+   "args": {
+    "date_from": "2026-11-15",
+    "date_to": "2026-11-15"
+   },
+   "result": {
+    "days": [
+     {
+      "date": "2026-11-15",
+      "kcal": 785.0,
+      "protein_g": 56.0
+     }
+    ],
+    "total": {
+     "kcal": 785.0,
+     "protein_g": 56.0
+    }
+   },
+   "ms": 0.4
+  },
+  {
+   "step": 3,
+   "t": 1.746,
+   "kind": "llm",
+   "name": "gpt-4o-mini",
+   "result": {
+    "content": "Yesterday, you consumed a total of 785 calories from your meal preps.",
+    "tool_calls": []
+   },
+   "tokens": {
+    "prompt": 1248,
+    "completion": 17
+   },
+   "ms": 858.4
+  }
+ ],
+ "final_state": {
+  "batches": [
+   {
+    "id": "B1",
+    "name": "chicken rice box",
+    "prepared_on": "2026-11-12",
+    "servings_total": 4.0,
+    "per_serving": {
+     "kcal": 520.0,
+     "protein_g": 38.0
+    }
+   },
+   {
+    "id": "B2",
+    "name": "beef broccoli box",
+    "prepared_on": "2026-11-13",
+    "servings_total": 3.0,
+    "per_serving": {
+     "kcal": 610.0,
+     "protein_g": 42.0
+    }
+   },
+   {
+    "id": "B3",
+    "name": "turkey chili",
+    "prepared_on": "2026-11-14",
+    "servings_total": 5.0,
+    "per_serving": {
+     "kcal": 480.0,
+     "protein_g": 35.0
+    }
+   }
+  ],
+  "events": [
+   {
+    "id": "E1",
+    "batch_id": "B1",
+    "date": "2026-11-12",
+    "meal": "dinner",
+    "servings": 1.0
+   },
+   {
+    "id": "E2",
+    "batch_id": "B1",
+    "date": "2026-11-13",
+    "meal": "lunch",
+    "servings": 1.0
+   },
+   {
+    "id": "E3",
+    "batch_id": "B2",
+    "date": "2026-11-13",
+    "meal": "dinner",
+    "servings": 1.0
+   },
+   {
+    "id": "E4",
+    "batch_id": "B1",
+    "date": "2026-11-14",
+    "meal": "lunch",
+    "servings": 1.0
+   },
+   {
+    "id": "E5",
+    "batch_id": "B3",
+    "date": "2026-11-14",
+    "meal": "dinner",
+    "servings": 1.0
+   },
+   {
+    "id": "E6",
+    "batch_id": "B2",
+    "date": "2026-11-15",
+    "meal": "lunch",
+    "servings": 0.5
+   },
+   {
+    "id": "E7",
+    "batch_id": "B3",
+    "date": "2026-11-15",
+    "meal": "dinner",
+    "servings": 1.0
+   },
+   {
+    "id": "E8",
+    "batch_id": "B3",
+    "date": "2026-11-16",
+    "meal": "lunch",
+    "servings": 0.5
+   }
+  ]
+ }
+}
